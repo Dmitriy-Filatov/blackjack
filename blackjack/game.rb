@@ -29,7 +29,7 @@ class Game
     user.make_bet
     diller.make_bet
     game.take_bet
-    puts 'Введите абабаб'
+    puts 'Введите: 1 - пропустить ход, 2 - добавить карту, 3 - открыть карты.'
     detect_user_input(gets.chomp)
     dillers_move(deck: deck, diller: diller)
     check_cards_count(diller, user)
