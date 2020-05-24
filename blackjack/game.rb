@@ -18,56 +18,69 @@ class Game
   def start
     game = Game.new
     puts 'Введите имя'
-    user = User.new(name: gets.chomp)
-    diller = Diller.new
+    @user = User.new(name: gets.chomp)
+    @diller = Diller.new
     deck = Deck.new
-    user.get_cards(deck.pop_two_cards)
-    diller.get_cards(deck.pop_two_cards)
-    puts(user.hand.cards.map(&:symbol))
-    puts(user.hand.score)
+    @user.get_cards(deck.pop_two_cards)
+    @diller.get_cards(deck.pop_two_cards)
+    puts(@user.hand.cards.map(&:symbol))
+    puts(@user.hand.score)
     puts '**'
-    user.make_bet
-    diller.make_bet
+    @user.make_bet
+    @diller.make_bet
     game.take_bet
-    puts 'Введите: 1 - пропустить ход, 2 - добавить карту, 3 - открыть карты.'
-    detect_user_input(gets.chomp)
-    dillers_move(deck: deck, diller: diller)
-    check_cards_count(diller, user)
+    party_loop
   end
 
-  def detect_user_input(menu_number)
-    case menu_number
+  def party_loop
+    loop do
+      puts 'Введите: 1 - пропустить ход, 2 - добавить карту, 3 - открыть карты.'
+      user_input = gets.chomp
+      user_move(user_input)
+      dillers_move(deck: deck)
+      puts(@user.hand.score)
+    end
+  end
+
+  def user_move(user_input)
+    case user_input
     when '1'
       nil
     when '2'
-      add_one_card
+      add_one_card if @user.hand.cards.count == 2
     when '3'
       open_cards
     end
   end
 
-  def dillers_move(diller:, deck:)
-    if diller.hand.score >= 17
+  def dillers_move(deck:)
+    if @diller.hand.score >= 17
       nil
     else
-      diller.get_cards(deck.pop_card)
+      @diller.get_cards(deck.pop_card)
     end
   end
 
-  def add_one_card
-
-  end
-
-  def check_cards_count(diller, user)
-
-  end
-
   def open_cards
-    game_over
+    puts @diller.hand.cards.map(&:symbol)
+    puts @user.hand.cards.map(&:symbol)
+    puts @diller.hand.score
+    results
   end
 
-  def game_over
+  def results
     # Подсчет результатов
+    diller_score = (21 - @diller.hand.score).abs
+    user_score = (21 - @user.hand.score).abs
+    if diller_score == user_score
+      puts 'Dead heat!'
+      return
+    end
+    if diller_score < user_score
+      puts 'User lose. Diller wins!'
+    else
+      puts 'Diller lose. User wins!'
+    end
     # Хочешь сыграть? да раздача нет выход
   end
 end
