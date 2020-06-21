@@ -15,7 +15,7 @@ class Game
     @game_bank += 20
   end
 
-  def start
+  def go
     game = Game.new
     puts 'Введите имя'
     @user = User.new(name: gets.chomp)
@@ -34,11 +34,12 @@ class Game
 
   def party_loop
     loop do
-      puts 'Введите: 1 - пропустить ход, 2 - добавить карту, 3 - открыть карты.'
+      puts 'Введите: 1 - пропустить ход; 2 - добавить карту; 3 - открыть карты.'
       user_input = gets.chomp
       user_move(user_input)
-      dillers_move(deck: deck)
+      dillers_move deck:
       puts(@user.hand.score)
+      break # if
     end
   end
 
@@ -51,6 +52,10 @@ class Game
     when '3'
       open_cards
     end
+  end
+
+  def add_one_card
+
   end
 
   def dillers_move(deck:)
@@ -69,7 +74,6 @@ class Game
   end
 
   def results
-    # Подсчет результатов
     diller_score = (21 - @diller.hand.score).abs
     user_score = (21 - @user.hand.score).abs
     if diller_score == user_score
@@ -81,7 +85,16 @@ class Game
     else
       puts 'Diller lose. User wins!'
     end
-    # Хочешь сыграть? да раздача нет выход
+  end
+
+  def action_choise(user_input)
+    case user_input
+    when '1'
+
+    when '2'
+    end
+    # play another round
+    # quit
   end
 end
 
