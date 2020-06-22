@@ -48,14 +48,13 @@ class Game
     when '1'
       nil
     when '2'
-      add_one_card if @user.hand.cards.count == 2
+      get_one_card_from_the if @user.hand.cards.count == 2
     when '3'
       open_cards
     end
   end
 
-  def add_one_card
-
+  def get_one_card_from_the
   end
 
   def dillers_move(deck:)
