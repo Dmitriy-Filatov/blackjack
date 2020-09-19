@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-puts 'Введите имя'
-
 class Game
   attr_reader :game_bank
 
