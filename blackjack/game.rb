@@ -190,3 +190,5 @@ class Deck
     [pop_card, pop_card]
   end
 end
+
+Game.new.go
