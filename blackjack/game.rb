@@ -1,13 +1,11 @@
 # frozen_string_literal: true
 
-class Interface
-end
+puts 'Введите имя'
 
 class Game
   attr_reader :game_bank
 
   def initialize
-    @interface = Interface.new
     @game_bank = 0
   end
 
@@ -16,8 +14,8 @@ class Game
   end
 
   def go
-    game = Game.new
     puts 'Введите имя'
+    @game = Game.new
     @user = User.new(name: gets.chomp)
     @diller = Diller.new
     @deck = Deck.new
@@ -28,7 +26,7 @@ class Game
     puts '**'
     @user.make_bet
     @diller.make_bet
-    game.take_bet
+    @game.take_bet
     party_loop
   end
 
@@ -61,7 +59,7 @@ class Game
     if @diller.hand.score >= 17
       nil
     else
-      @diller.get_cards(@deck.pop_card)
+      @diller.get_cards(deck.pop_card)
     end
   end
 
