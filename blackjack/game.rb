@@ -20,9 +20,9 @@ class Game
     puts 'Введите имя'
     @user = User.new(name: gets.chomp)
     @diller = Diller.new
-    deck = Deck.new
-    @user.get_cards(deck.pop_two_cards)
-    @diller.get_cards(deck.pop_two_cards)
+    @deck = Deck.new
+    @user.get_cards(@deck.pop_two_cards)
+    @diller.get_cards(@deck.pop_two_cards)
     puts(@user.hand.cards.map(&:symbol))
     puts(@user.hand.score)
     puts '**'
@@ -37,7 +37,7 @@ class Game
       puts 'Введите: 1 - пропустить ход; 2 - добавить карту; 3 - открыть карты.'
       user_input = gets.chomp
       user_move(user_input)
-      dillers_move deck:
+      dillers_move(@deck)
       puts(@user.hand.score)
       break # if
     end
@@ -57,11 +57,11 @@ class Game
   def get_one_card_from_the
   end
 
-  def dillers_move(deck:)
+  def dillers_move(deck)
     if @diller.hand.score >= 17
       nil
     else
-      @diller.get_cards(deck.pop_card)
+      @diller.get_cards(@deck.pop_card)
     end
   end
 
@@ -106,7 +106,7 @@ class Player
   end
 
   def get_cards(cards)
-    @hand.take_cards(cards)
+    @hand.take(cards)
   end
 
   def make_bet
@@ -135,7 +135,7 @@ class Hand
     @cards = []
   end
 
-  def take_cards(cards)
+  def take(cards)
     cards.each do |card|
       @cards << card
     end
