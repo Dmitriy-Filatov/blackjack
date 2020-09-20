@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'pry'
+
 class Game
   attr_reader :game_bank
 
@@ -17,8 +19,8 @@ class Game
     @user = User.new(name: gets.chomp)
     @diller = Diller.new
     @deck = Deck.new
-    @user.get_cards(@deck.pop_two_cards)
-    @diller.get_cards(@deck.pop_two_cards)
+    @user.cards(@deck.pop_two_cards)
+    @diller.cards(@deck.pop_two_cards)
     puts(@user.hand.cards.map(&:symbol))
     puts(@user.hand.score)
     puts '**'
@@ -50,14 +52,15 @@ class Game
     end
   end
 
-  def get_one_card_from_the
+  def one_card
+    @diller.cards(@deck.pop_card)
   end
 
   def dillers_move(deck)
     if @diller.hand.score >= 17
       nil
     else
-      @diller.get_cards(deck.pop_card)
+      @diller.cards(deck.pop_card)
     end
   end
 
@@ -101,7 +104,7 @@ class Player
     @player_bank = 100
   end
 
-  def get_cards(cards)
+  def cards(cards)
     @hand.take(cards)
   end
 
@@ -132,6 +135,7 @@ class Hand
   end
 
   def take(cards)
+    #binding.pry
     cards.each do |card|
       @cards << card
     end
