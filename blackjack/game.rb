@@ -6,6 +6,7 @@ class Game
   attr_reader :game_bank
 
   def initialize
+    # @interface = Interface.new
     @game_bank = 0
   end
 
@@ -14,20 +15,21 @@ class Game
   end
 
   def go
+    # @game = Game.new
     puts 'Введите имя'
-    @game = Game.new
     @user = User.new(name: gets.chomp)
-    @diller = Diller.new
+    @dealer = Dealer.new
     @deck = Deck.new
     @user.cards(@deck.pop_two_cards)
-    @diller.cards(@deck.pop_two_cards)
     puts(@user.hand.cards.map(&:symbol))
     puts(@user.hand.score)
+    @dealer.cards(@deck.pop_two_cards)
     puts '**'
     @user.make_bet
-    @diller.make_bet
-    @game.take_bet
-    party_loop
+    @dealer.make_bet
+    take_bet
+    game_bank
+    # party_loop
   end
 
   def party_loop
@@ -35,53 +37,55 @@ class Game
       puts 'Введите: 1 - пропустить ход; 2 - добавить карту; 3 - открыть карты.'
       user_input = gets.chomp
       user_move(user_input)
-      dillers_move(@deck)
+      dealers_move
       puts(@user.hand.score)
-      break # if
+      break results
     end
   end
 
   def user_move(user_input)
     case user_input
     when '1'
-      nil
+      dealers_move
     when '2'
-      get_one_card_from_the if @user.hand.cards.count == 2
+      one_card if @user.hand.cards.count == 2
     when '3'
       open_cards
+      results
     end
   end
 
   def one_card
-    @diller.cards(@deck.pop_card)
+    @user.cards(@deck.pop_card)
   end
 
-  def dillers_move(deck)
-    if @diller.hand.score >= 17
-      nil
+  def dealers_move
+    if @dealer.hand.score >= 17
+      puts 'Введите: 1 - пропустить ход; 2 - добавить карту; 3 - открыть карты.'
+      user_input = gets.chomp
+      user_move(user_input)
     else
-      @diller.cards(deck.pop_card)
+      @dealer.cards(@deck.pop_card)
     end
   end
 
   def open_cards
-    puts @diller.hand.cards.map(&:symbol)
+    puts @dealer.hand.cards.map(&:symbol)
     puts @user.hand.cards.map(&:symbol)
-    puts @diller.hand.score
-    results
+    puts @dealer.hand.score
   end
 
   def results
-    diller_score = (21 - @diller.hand.score).abs
+    dealer_score = (21 - @dealer.hand.score).abs
     user_score = (21 - @user.hand.score).abs
-    if diller_score == user_score
+    if dealer_score == user_score
       puts 'Dead heat!'
       return
     end
-    if diller_score < user_score
-      puts 'User lose. Diller wins!'
+    if dealer_score < user_score
+      puts 'User lose. Dealer wins!'
     else
-      puts 'Diller lose. User wins!'
+      puts 'Dealer lose. User wins!'
     end
   end
 
@@ -120,8 +124,8 @@ class User < Player
   end
 end
 
-class Diller < Player
-  def initialize(name: 'Diller')
+class Dealer < Player
+  def initialize(name: 'Dealer')
     @name = name
     super()
   end
@@ -135,10 +139,8 @@ class Hand
   end
 
   def take(cards)
-    #binding.pry
-    cards.each do |card|
-      @cards << card
-    end
+    # binding.pry
+    cards.each { |card| @cards << card }
   end
 
   def weight(card)
@@ -195,4 +197,4 @@ class Deck
   end
 end
 
-Game.new.go
+# Game.new.go
