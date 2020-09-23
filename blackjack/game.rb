@@ -6,20 +6,28 @@ class Game
   attr_reader :game_bank
 
   def initialize
-    # @interface = Interface.new
+    @game = Game.new
+    @dealer = Dealer.new
+    @deck = Deck.new
     @game_bank = 0
   end
 
   def take_bet
     @game_bank += 20
   end
+end
 
+class Interface
+  def accept_user_input
+    puts 'Введите имя!'
+    @user_name = gets.chomp
+  end
+
+  def create_user
+    User.new(@user_name)
+  end
+  # @game.go
   def go
-    # @game = Game.new
-    puts 'Введите имя'
-    @user = User.new(name: gets.chomp)
-    @dealer = Dealer.new
-    @deck = Deck.new
     @user.cards(@deck.pop_two_cards)
     puts(@user.hand.cards.map(&:symbol))
     puts(@user.hand.score)
@@ -197,4 +205,4 @@ class Deck
   end
 end
 
-# Game.new.go
+Interface.new.accept_user_input
