@@ -19,8 +19,9 @@ end
 
 class Interface
   def accept_user_input
-    puts 'Введите имя!'
+    puts 'Введите свое имя и нажмите Enter!'
     @user_name = gets.chomp
+    puts "Привет, #{@user_name}. Игра началась!"
   end
 
   def create_user
