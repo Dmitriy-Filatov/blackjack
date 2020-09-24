@@ -6,9 +6,6 @@ class Game
   attr_reader :game_bank
 
   def initialize
-    @game = Game.new
-    @dealer = Dealer.new
-    @deck = Deck.new
     @game_bank = 0
   end
 
@@ -18,17 +15,18 @@ class Game
 end
 
 class Interface
-  def accept_user_input
+  def create_user
     puts 'Введите свое имя и нажмите Enter!'
-    @user_name = gets.chomp
-    puts "Привет, #{@user_name}. Игра началась!"
+    name = gets.chomp
+    @user = User.new(name)
+    puts "Привет, #{name}. Игра началась!"
   end
 
-  def create_user
-    User.new(@user_name)
-  end
-  # @game.go
   def go
+    create_user
+    @game = Game.new
+    @dealer = Dealer.new
+    @deck = Deck.new
     @user.cards(@deck.pop_two_cards)
     puts(@user.hand.cards.map(&:symbol))
     puts(@user.hand.score)
@@ -36,19 +34,20 @@ class Interface
     puts '**'
     @user.make_bet
     @dealer.make_bet
-    take_bet
-    game_bank
-    # party_loop
+    @game.take_bet
+    @game.game_bank
+    party_loop
   end
 
   def party_loop
     loop do
       puts 'Введите: 1 - пропустить ход; 2 - добавить карту; 3 - открыть карты.'
       user_input = gets.chomp
+      break if open_cards
+
       user_move(user_input)
       dealers_move
       puts(@user.hand.score)
-      break results
     end
   end
 
@@ -58,9 +57,9 @@ class Interface
       dealers_move
     when '2'
       one_card if @user.hand.cards.count == 2
+      open_cards if @user.hand.cards.count == 3 && @dealer.hand.cards.count == 3
     when '3'
       open_cards
-      results
     end
   end
 
@@ -70,8 +69,6 @@ class Interface
 
   def dealers_move
     if @dealer.hand.score >= 17
-      puts 'Введите: 1 - пропустить ход; 2 - добавить карту; 3 - открыть карты.'
-      user_input = gets.chomp
       user_move(user_input)
     else
       @dealer.cards(@deck.pop_card)
@@ -79,9 +76,11 @@ class Interface
   end
 
   def open_cards
-    puts @dealer.hand.cards.map(&:symbol)
     puts @user.hand.cards.map(&:symbol)
-    puts @dealer.hand.score
+    puts "#{@user.name}: #{@user.hand.score}."
+    puts @dealer.hand.cards.map(&:symbol)
+    puts "Дилер: #{@dealer.hand.score}."
+    results
   end
 
   def results
@@ -110,7 +109,7 @@ class Interface
 end
 
 class Player
-  attr_reader :player_bank, :hand
+  attr_reader :player_bank, :hand, :name
 
   def initialize
     @hand = Hand.new
@@ -127,14 +126,14 @@ class Player
 end
 
 class User < Player
-  def initialize(name:)
+  def initialize(name)
     @name = name
     super()
   end
 end
 
 class Dealer < Player
-  def initialize(name: 'Dealer')
+  def initialize(name: 'Дилер')
     @name = name
     super()
   end
@@ -148,7 +147,6 @@ class Hand
   end
 
   def take(cards)
-    # binding.pry
     cards.each { |card| @cards << card }
   end
 
@@ -206,4 +204,4 @@ class Deck
   end
 end
 
-Interface.new.accept_user_input
+Interface.new.go
