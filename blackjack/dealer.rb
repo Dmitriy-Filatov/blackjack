@@ -3,7 +3,7 @@
 require_relative 'player'
 
 class Dealer < Player
-  def initialize(name: 'Дилер')
+  def initialize(name: 'Dealer')
     @name = name
     super()
   end

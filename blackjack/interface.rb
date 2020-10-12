@@ -1,14 +1,5 @@
 # frozen_string_literal: true
 
-require 'pry'
-require_relative 'card'
-require_relative 'deck'
-require_relative 'hand'
-require_relative 'player'
-require_relative 'diller'
-require_relative 'user'
-require_relative 'game'
-
 class Interface
   def create_user
     puts 'Введите свое имя и нажмите Enter!'
