@@ -3,8 +3,9 @@
 require_relative 'player'
 
 class User < Player
-  def initialize(name)
-    @name = name
+  attr_accessor :name
+
+  def initialize
     super()
   end
 end

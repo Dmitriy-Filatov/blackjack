@@ -1,17 +1,15 @@
 # frozen_string_literal: true
 
 class Interface
-  def create_user
-    puts 'Введите свое имя и нажмите Enter!'
-    name = gets.chomp
-    @user = User.new(name)
-    puts "Привет, #{name}. Игра началась!"
+
+  def initialize(game)
+    @game = game
+    @user = game.user
+    @dealer = game.dealer
   end
 
   def go
-    create_user
-    @game = Game.new
-    @dealer = Dealer.new
+    ask_name
     @deck = Deck.new
     @user.cards(@deck.pop_two_cards)
     puts(@user.hand.cards.map(&:symbol))
@@ -23,6 +21,13 @@ class Interface
     @game.take_bet
     @game.game_bank
     party_loop
+  end
+
+  def ask_name
+    puts 'Введите свое имя и нажмите Enter!'
+    name = gets.chomp
+    @user.name = name
+    puts "Привет, #{name}. Игра началась!"
   end
 
   def party_loop
@@ -93,5 +98,3 @@ class Interface
     # quit
   end
 end
-
-Interface.new.go
