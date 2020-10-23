@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'pry'
+require_relative 'interface'
 require_relative 'card'
 require_relative 'deck'
 require_relative 'hand'

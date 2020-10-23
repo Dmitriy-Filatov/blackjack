@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Interface
-
   def initialize(game)
     @game = game
     @user = game.user
