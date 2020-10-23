@@ -3,19 +3,16 @@
 require_relative 'card'
 
 class Deck
-  DECK = %w[2♠ 3♠ 4♠ 5♠ 6♠ 7♠ 8♠ 9♠ 10♠ J♠ Q♠ K♠ A♠
-            2♥ 3♥ 4♥ 5♥ 6♥ 7♥ 8♥ 9♥ 10♥ J♥ Q♥ K♥ A♥
-            2♦ 3♦ 4♦ 5♦ 6♦ 7♦ 8♦ 9♦ 10♦ J♦ Q♦ K♦ A♦
-            2♣ 3♣ 4♣ 5♣ 6♣ 7♣ 8♣ 9♣ 10♣ J♣ Q♣ K♣ A♣].freeze
-
   def initialize
     @deck = initialize_deck
   end
 
   def initialize_deck
-    DECK.shuffle.map do |card_symbol|
-      Card.new(card_symbol)
+    deck = []
+    Card::SUITS.each do |suit|
+      Card::RANKS.each { |value| cards_deck << Card.new(value, suit) }
     end
+    deck
   end
 
   def pop_card
