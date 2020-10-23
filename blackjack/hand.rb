@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative 'card'
+
 class Hand
   attr_reader :cards
 
@@ -12,10 +14,10 @@ class Hand
   end
 
   def weight(card)
-    return 11 if card.card_value == 'A'
+    return 11 if card.value == 'A'
 
-    if ('2'..'10').include?(card.card_value)
-      card.card_value.to_i
+    if ('2'..'10').include?(card.value)
+      card.value.to_i
     else
       10
     end
