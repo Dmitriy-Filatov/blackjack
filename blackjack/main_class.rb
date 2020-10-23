@@ -18,6 +18,13 @@ class Main
     interface = Interface.new(game)
     interface.go
   end
+
+  def ask_name
+    puts 'Введите свое имя и нажмите Enter!'
+    name = gets.chomp
+    @user.name = name
+    puts "Привет, #{name}. Игра началась!"
+  end
 end
 
 Main.new

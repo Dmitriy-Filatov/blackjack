@@ -23,13 +23,6 @@ class Interface
     party_loop
   end
 
-  def ask_name
-    puts 'Введите свое имя и нажмите Enter!'
-    name = gets.chomp
-    @user.name = name
-    puts "Привет, #{name}. Игра началась!"
-  end
-
   def party_loop
     loop do
       puts 'Введите: 1 - пропустить ход; 2 - добавить карту; 3 - открыть карты.'
