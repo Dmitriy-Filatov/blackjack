@@ -11,7 +11,7 @@ class Interface
     ask_name
     @deck = Deck.new
     @user.cards(@deck.pop_two_cards)
-    puts(@user.hand.cards.map(&:symbol))
+    puts(@user.hand.cards.map(&:value))
     puts(@user.hand.score)
     @dealer.cards(@deck.pop_two_cards)
     puts '**'
@@ -22,20 +22,31 @@ class Interface
     party_loop
   end
 
+  def ask_name
+    puts 'Введите свое имя и нажмите Enter!'
+    name = gets.chomp
+    @user.name = name
+    puts "Привет, #{name}. Игра началась!"
+  end
+
+  def print_menu
+    puts 'Введите: 1 - пропустить ход; 2 - добавить карту; 3 - открыть карты.'
+  end
+
   def party_loop
     loop do
-      puts 'Введите: 1 - пропустить ход; 2 - добавить карту; 3 - открыть карты.'
-      user_input = gets.chomp
+      print_menu
+      menue_number = gets.chomp
       break if open_cards
 
-      user_move(user_input)
+      user_move(menue_number)
       dealers_move
       puts(@user.hand.score)
     end
   end
 
-  def user_move(user_input)
-    case user_input
+  def user_move(menue_number)
+    case menue_number
     when '1'
       dealers_move
     when '2'
@@ -52,16 +63,16 @@ class Interface
 
   def dealers_move
     if @dealer.hand.score >= 17
-      user_move(user_input)
+      user_move
     else
       @dealer.cards(@deck.pop_card)
     end
   end
 
   def open_cards
-    puts @user.hand.cards.map(&:symbol)
+    puts @user.hand.cards.map(&:value)
     puts "#{@user.name}: #{@user.hand.score}."
-    puts @dealer.hand.cards.map(&:symbol)
+    puts @dealer.hand.cards.map(&:value)
     puts "Дилер: #{@dealer.hand.score}."
     results
   end
