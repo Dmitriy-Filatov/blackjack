@@ -20,7 +20,7 @@ class Deck
   def initialize_deck
     deck = []
     Card::SUITS.each do |suit|
-      Card::RANKS.each { |value| deck << Card.new(value, suit) }
+      Card::RANKS.each { |value| deck << Card.new(suit, value) }
     end
     deck.shuffle
   end

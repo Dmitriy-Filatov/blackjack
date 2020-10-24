@@ -11,7 +11,7 @@ class Interface
     ask_name
     @deck = Deck.new
     @user.cards(@deck.pop_two_cards)
-    puts(@user.hand.cards.map(&:value))
+    puts(@user.hand.cards.map(&:show))
     puts(@user.hand.score)
     @dealer.cards(@deck.pop_two_cards)
     puts '**'
@@ -37,7 +37,8 @@ class Interface
     loop do
       print_menu
       menue_number = gets.chomp
-      break if open_cards
+      open_cards
+      break if results
 
       user_move(menue_number)
       dealers_move
@@ -58,23 +59,18 @@ class Interface
   end
 
   def one_card
-    @user.cards(@deck.pop_card)
+    @user.cards([@deck.pop_card])
   end
 
   def dealers_move
-    if @dealer.hand.score >= 17
-      user_move
-    else
-      @dealer.cards(@deck.pop_card)
-    end
+    @dealer.cards([@deck.pop_card]) if @dealer.hand.score < 17
   end
 
   def open_cards
-    puts @user.hand.cards.map(&:value)
-    puts "#{@user.name}: #{@user.hand.score}."
-    puts @dealer.hand.cards.map(&:value)
-    puts "Дилер: #{@dealer.hand.score}."
-    results
+    puts @user.hand.cards.map(&:show)
+    puts "#{@user.name}: #{@user.hand.score}"
+    puts @dealer.hand.cards.map(&:show)
+    puts "Дилер: #{@dealer.hand.score}"
   end
 
   def results

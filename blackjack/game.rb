@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class Game
-  attr_reader :game_bank, :user, :dealer
+  arg = %i[game_bank user dealer]
+  attr_reader(*arg)
 
   def initialize
     @user = User.new
