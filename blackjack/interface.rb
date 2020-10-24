@@ -12,9 +12,11 @@ class Interface
     @deck = Deck.new
     @user.cards(@deck.pop_two_cards)
     puts(@user.hand.cards.map(&:show))
-    puts(@user.hand.score)
+    puts "Сумма твоих очков, #{@user.name}: #{@user.hand.score}"
+    puts '___________________'
     @dealer.cards(@deck.pop_two_cards)
-    puts '**'
+    puts 'Карты дилера |*| |*|'
+    puts '___________________'
     @user.make_bet
     @dealer.make_bet
     @game.take_bet
@@ -27,6 +29,7 @@ class Interface
     name = gets.chomp
     @user.name = name
     puts "Привет, #{name}. Игра началась!"
+    puts '___________________'
   end
 
   def print_menu
@@ -42,7 +45,7 @@ class Interface
 
       user_move(menue_number)
       dealers_move
-      puts(@user.hand.score)
+      puts "Сумма твоих очков, #{@user.name}: #{@user.hand.score}"
     end
   end
 
@@ -67,10 +70,13 @@ class Interface
   end
 
   def open_cards
+    puts '___________________'
     puts @user.hand.cards.map(&:show)
-    puts "#{@user.name}: #{@user.hand.score}"
+    puts "Сумма твоих очков, #{@user.name}: #{@user.hand.score}"
+    puts '___________________'
     puts @dealer.hand.cards.map(&:show)
-    puts "Дилер: #{@dealer.hand.score}"
+    puts "Сумма очков Дилера: #{@dealer.hand.score}"
+    puts '___________________'
   end
 
   def results
