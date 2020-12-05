@@ -8,7 +8,7 @@ class Interface
   end
 
   def go
-    ask_name
+    ask_name #if @user.name.lenght == 0 ili
     @deck = Deck.new
     @user.cards(@deck.pop_two_cards)
     puts(@user.hand.cards.map(&:show))
@@ -40,7 +40,7 @@ class Interface
     loop do
       print_menu
       menue_number = gets.chomp
-      open_cards
+      show_cards
       break if results
 
       user_move(menue_number)
@@ -55,9 +55,9 @@ class Interface
       dealers_move
     when '2'
       one_card if @user.hand.cards.count == 2
-      open_cards if @user.hand.cards.count == 3 && @dealer.hand.cards.count == 3
+      show_cards if @user.hand.cards.count == 3 && @dealer.hand.cards.count == 3
     when '3'
-      open_cards
+      show_cards
     end
   end
 
@@ -69,7 +69,7 @@ class Interface
     @dealer.cards([@deck.pop_card]) if @dealer.hand.score < 17
   end
 
-  def open_cards
+  def show_cards
     puts '___________________'
     puts @user.hand.cards.map(&:show)
     puts "Сумма твоих очков, #{@user.name}: #{@user.hand.score}"
