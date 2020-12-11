@@ -12,11 +12,12 @@ require_relative 'game'
 
 class Main
   def initialize
-    # Класс интерфейса получает класс игры и теперь управляет ей:
-    # 1) Получая состояние/статус игры (вывод информации)
-    # 2) Возможные варианты действий - меню (ввод информации)
-    interface = Interface.new(Game.new)
-    interface.go
+    @interface = Interface.new(Game.new)
+    go
+  end
+
+  def go
+    @interface.go
   end
 end
 

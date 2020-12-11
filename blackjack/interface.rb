@@ -8,7 +8,7 @@ class Interface
   end
 
   def go
-    ask_name #if @user.name.lenght == 0 ili
+    ask_name
     @deck = Deck.new
     @user.cards(@deck.pop_two_cards)
     puts(@user.hand.cards.map(&:show))
@@ -75,7 +75,7 @@ class Interface
     puts "Сумма твоих очков, #{@user.name}: #{@user.hand.score}"
     puts '___________________'
     puts @dealer.hand.cards.map(&:show)
-    puts "Сумма очков Дилера: #{@dealer.hand.score}"
+    puts "Сумма очков дилера: #{@dealer.hand.score}"
     puts '___________________'
   end
 
@@ -87,9 +87,9 @@ class Interface
       return
     end
     if dealer_score < user_score
-      puts 'User lose. Dealer wins!'
+      puts "#{@user.name} lose. Dealer wins!"
     else
-      puts 'Dealer lose. User wins!'
+      puts "Dealer lose. #{@user.name} wins!"
     end
   end
 
