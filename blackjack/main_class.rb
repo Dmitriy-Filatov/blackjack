@@ -13,10 +13,10 @@ require_relative 'game'
 class Main
   def initialize
     @interface = Interface.new(Game.new)
-    go
+    start
   end
 
-  def go
+  def start
     @interface.go
   end
 end
