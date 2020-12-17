@@ -11,7 +11,7 @@ class Card
     @value = value
   end
 
-  def show
+  def face
     "#{@suit} #{@value}"
   end
 end

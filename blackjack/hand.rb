@@ -13,19 +13,16 @@ class Hand
     cards.each { |card| @cards << card }
   end
 
-  def weight(card)
-    return 11 if card.value == 'A'
-
-    if ('2'..'10').include?(card.value)
-      card.value.to_i
-    else
-      10
-    end
-  end
-
   def score
-    @cards.sum do |card|
-      weight(card)
+    @cards.inject(0) do |sum, card|
+      q = if %w[J Q K].include?(card.value)
+            10
+          elsif card.value == 'A'
+            sum + 11 > 21 ? 1 : 11
+          else
+            card.value.to_i
+          end
+      sum + q
     end
   end
 end

@@ -1,27 +1,8 @@
 # frozen_string_literal: true
 
 class Interface
-  def initialize(game)
-    @game = game
-    @user = game.user
-    @dealer = game.dealer
-  end
-
-  def go
+  def initialize
     ask_name
-    @deck = Deck.new
-    @user.cards(@deck.pop_two_cards)
-    puts(@user.hand.cards.map(&:show))
-    puts "Сумма твоих очков, #{@user.name}: #{@user.hand.score}"
-    puts '___________________'
-    @dealer.cards(@deck.pop_two_cards)
-    puts 'Карты дилера |*| |*|'
-    puts '___________________'
-    @user.make_bet
-    @dealer.make_bet
-    @game.take_bet
-    @game.game_bank
-    party_loop
   end
 
   def ask_name
@@ -30,6 +11,20 @@ class Interface
     @user.name = name
     puts "Привет, #{name}. Игра началась!"
     puts '___________________'
+  end
+
+def show_users_score
+  puts "Сумма твоих очков, #{@user.name}: #{@user.hand.score}"
+  puts '___________________'
+end
+
+def show_dealers_score
+
+end
+
+    puts 'Карты дилера |*| |*|'
+    puts '___________________'
+
   end
 
   def print_menu
@@ -71,10 +66,10 @@ class Interface
 
   def show_cards
     puts '___________________'
-    puts @user.hand.cards.map(&:show)
+    puts @user.hand.cards.map(&:face)
     puts "Сумма твоих очков, #{@user.name}: #{@user.hand.score}"
     puts '___________________'
-    puts @dealer.hand.cards.map(&:show)
+    puts @dealer.hand.cards.map(&:face)
     puts "Сумма очков дилера: #{@dealer.hand.score}"
     puts '___________________'
   end
