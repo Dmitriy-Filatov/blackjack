@@ -11,6 +11,10 @@ class Game
     @game_bank = 0
   end
 
+  def assign_variable_name
+    @user.name = @name
+  end
+
   def new_round
     give_2_cards_to_user
     give_2_cards_to_dealer
@@ -37,5 +41,26 @@ class Game
 
   def game_bank_take_bet
     @game_bank += 20
+  end
+
+  def give_1_one_card_to_user
+    @user.cards([@deck.pop_card])
+  end
+
+  def dealer_move
+    @dealer.cards([@deck.pop_card]) if @dealer.hand.score < 17
+  end
+
+  def party_loop
+    loop do
+      print_menu
+      menue_number = gets.chomp
+      show_cards
+      break if results
+
+      user_move(menue_number)
+      dealers_move
+      puts "Сумма твоих очков, #{@user.name}: #{@user.hand.score}"
+    end
   end
 end
