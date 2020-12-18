@@ -13,18 +13,16 @@ class Interface
     puts '___________________'
   end
 
-def show_users_score
-  puts "Сумма твоих очков, #{@user.name}: #{@user.hand.score}"
-  puts '___________________'
-end
+  def show_users_score
+    puts "Сумма твоих очков, #{@user.name}: #{@user.hand.score}"
+  end
 
-def show_dealers_score
-
-end
-
+  def show_dealers_score
     puts 'Карты дилера |*| |*|'
-    puts '___________________'
+  end
 
+  def show_horizontal_line
+    puts '___________________'
   end
 
   def print_menu

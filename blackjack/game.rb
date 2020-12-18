@@ -38,5 +38,4 @@ class Game
   def game_bank_take_bet
     @game_bank += 20
   end
-
 end

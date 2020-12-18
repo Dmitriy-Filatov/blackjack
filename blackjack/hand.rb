@@ -15,14 +15,14 @@ class Hand
 
   def score
     @cards.inject(0) do |sum, card|
-      q = if %w[J Q K].include?(card.value)
-            10
-          elsif card.value == 'A'
-            sum + 11 > 21 ? 1 : 11
-          else
-            card.value.to_i
-          end
-      sum + q
+      card_value = if %w[J Q K].include?(card.value)
+        10
+      elsif card.value == 'A'
+        sum + 11 > 21 ? 1 : 11
+      else
+        card.value.to_i
+      end
+      sum + card_value
     end
   end
 end
