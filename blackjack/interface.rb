@@ -9,31 +9,24 @@ class Interface
     @game = Game.new
   end
 
-  def username_input
-    user_input_message
-    username
-    user_greeting
-    line
-  end
-
-  def start_game
-    game.start_game
-  end
-
   def user_input_message
     puts 'Введите свое имя и нажмите Enter!'
   end
 
-  def username
-    game.user = gets.chomp
+  def username_input
+    game.user.name = gets.chomp
   end
 
   def user_greeting
-    puts "Привет, #{@name}. Игра началась!"
+    puts 'Привет. Игра началась!'
   end
 
   def line
     puts '___________________'
+  end
+
+  def start_game
+    game.start_game
   end
 
   def user_cards
