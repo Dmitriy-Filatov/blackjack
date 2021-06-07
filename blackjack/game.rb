@@ -2,7 +2,7 @@
 
 class Game
   arg = %i[game_bank user dealer deck]
-  attr_reader(*arg)
+  attr_accessor(*arg)
 
   def initialize
     @game_bank = 0
@@ -11,11 +11,7 @@ class Game
     @deck = Deck.new
   end
 
-  # def assign_variable_name
-  #   @user.name = @name
-  # end
-
-  def new_round
+  def start_game
     give_2_cards_to_user
     give_2_cards_to_dealer
     user_make_bet

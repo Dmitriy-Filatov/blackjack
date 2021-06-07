@@ -10,28 +10,6 @@ require_relative 'deck'
 require_relative 'card'
 require_relative 'hand'
 
-class Main
-  def initialize(interface)
-    @interface = interface
-  end
-
-  def ask_username
-    @interface.username_input
-  end
-
-  def game_logic_loop
-    loop do @game.new_round
-
-    end
-  end
-
-end
-
-# Цикл будет вертеть логику игры.
-# И вызывать нужные методы интерфейса при необходимости
-game = Game.new
-interface = Interface.new(game)
-main = Main.new(interface)
-binding.pry
-main.ask_username
-#game.game_logic_loop
+interface = Interface.new
+interface.username_input
+interface.start_game

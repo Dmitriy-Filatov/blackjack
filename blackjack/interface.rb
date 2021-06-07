@@ -1,25 +1,31 @@
 # frozen_string_literal: true
 
-class Interface
-  attr_reader :username
+require 'pry'
 
-  def initialize(game)
-    @game = game
+class Interface
+  attr_accessor :game
+
+  def initialize
+    @game = Game.new
   end
 
   def username_input
     user_input_message
-    username!
+    username
     user_greeting
     line
+  end
+
+  def start_game
+    game.start_game
   end
 
   def user_input_message
     puts 'Введите свое имя и нажмите Enter!'
   end
 
-  def username!
-    @username = gets.chomp
+  def username
+    game.user = gets.chomp
   end
 
   def user_greeting
