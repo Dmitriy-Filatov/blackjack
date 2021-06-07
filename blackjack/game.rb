@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
+require 'pry'
+
 class Game
   arg = %i[game_bank user dealer deck]
-  attr_accessor(*arg)
+  attr_reader(*arg)
 
   def initialize
     @game_bank = 0
