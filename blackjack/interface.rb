@@ -1,13 +1,15 @@
 # frozen_string_literal: true
 
 class Interface
-  def initialize(argument)
-    @argument = argument
+  attr_reader :username
+
+  def initialize(game)
+    @game = game
   end
 
-  def ask_name
+  def username_input
     user_input_message
-    username_input
+    username!
     user_greeting
     line
   end
@@ -16,8 +18,8 @@ class Interface
     puts 'Введите свое имя и нажмите Enter!'
   end
 
-  def username_input
-    @name = gets.chomp
+  def username!
+    @username = gets.chomp
   end
 
   def user_greeting
@@ -52,7 +54,7 @@ class Interface
     puts 'Введите: 1 - пропустить ход; 2 - добавить карту; 3 - открыть карты.'
   end
 
-  def prayers_cards_and_score
+  def players_cards_and_score
     line
     user_cards
     user_score

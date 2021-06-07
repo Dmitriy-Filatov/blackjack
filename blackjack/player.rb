@@ -4,8 +4,8 @@ class Player
   attr_reader :player_bank, :hand, :name
 
   def initialize
-    @hand = Hand.new
     @player_bank = 100
+    @hand = Hand.new
   end
 
   def cards(cards)

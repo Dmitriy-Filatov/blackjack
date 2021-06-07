@@ -5,15 +5,15 @@ class Game
   attr_reader(*arg)
 
   def initialize
+    @game_bank = 0
     @user = User.new
     @dealer = Dealer.new
     @deck = Deck.new
-    @game_bank = 0
   end
 
-  def assign_variable_name
-    @user.name = @name
-  end
+  # def assign_variable_name
+  #   @user.name = @name
+  # end
 
   def new_round
     give_2_cards_to_user
@@ -43,7 +43,7 @@ class Game
     @game_bank += 20
   end
 
-  def give_1_one_card_to_user
+  def give_one_card_to_user
     @user.cards([@deck.pop_card])
   end
 

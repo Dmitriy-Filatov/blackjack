@@ -3,18 +3,18 @@
 require_relative 'card'
 
 class Hand
-  attr_reader :cards
+  attr_reader :card_set
 
   def initialize
-    @cards = []
+    @card_set = []
   end
 
   def take(cards)
-    cards.each { |card| @cards << card }
+    cards.each { |card| @card_set << card }
   end
 
   def score
-    @cards.inject(0) do |sum, card|
+    @card_set.inject(0) do |sum, card|
       card_value = if %w[J Q K].include?(card.value)
         10
       elsif card.value == 'A'
