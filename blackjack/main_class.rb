@@ -11,5 +11,9 @@ require_relative 'card'
 require_relative 'hand'
 
 interface = Interface.new
+interface.user_input_message
 interface.username_input
-interface.start_game
+interface.user_greeting
+interface.line
+binding.pry
+#interface.start_game
