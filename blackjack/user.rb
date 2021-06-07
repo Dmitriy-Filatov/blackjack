@@ -3,7 +3,7 @@
 require_relative 'player'
 
 class User < Player
-  attr_reader :name
+  attr_accessor :name
 
   def initialize
     super()
