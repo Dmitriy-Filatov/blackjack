@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class Player
-  attr_reader :player_bank, :hand, :name
+  attr_accessor :bank, :hand, :name
 
   def initialize
-    @player_bank = 100
+    @bank = 100
     @hand = Hand.new
   end
 
