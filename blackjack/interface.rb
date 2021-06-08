@@ -18,7 +18,7 @@ class Interface
   end
 
   def user_greeting
-    puts 'Привет. Игра началась!'
+    puts "Привет, #{game.user.name.upcase}! Игра началась!"
   end
 
   def line
