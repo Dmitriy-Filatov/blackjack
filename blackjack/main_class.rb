@@ -15,5 +15,5 @@ interface.user_input_message
 interface.username_input
 interface.user_greeting
 interface.line
+interface.start_game
 binding.pry
-#interface.start_game
