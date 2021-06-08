@@ -13,6 +13,6 @@ class Player
   end
 
   def make_bet
-    @player_bank -= 10
+    @bank -= 10
   end
 end
