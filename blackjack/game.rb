@@ -22,23 +22,23 @@ class Game
   end
 
   def give_2_cards_to_user
-    @user.cards(@deck.pop_two_cards)
+    user.cards(deck.pop_two_cards)
   end
 
   def give_2_cards_to_dealer
-    @dealer.cards(@deck.pop_two_cards)
+    dealer.cards(deck.pop_two_cards)
   end
 
   def user_make_bet
-    @user.make_bet
+    user.make_bet
   end
 
   def dealer_make_bet
-    @dealer.make_bet
+    dealer.make_bet
   end
 
   def game_bank_take_bet
-    @game_bank += 20
+    self.game_bank += 20
   end
 
   def give_one_card_to_user
