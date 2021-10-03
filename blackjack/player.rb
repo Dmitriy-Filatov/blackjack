@@ -8,6 +8,10 @@ class Player
     @hand = Hand.new
   end
 
+  def refresh_hand
+    self.hand = Hand.new
+  end
+
   def cards(cards)
     @hand.take(cards)
   end

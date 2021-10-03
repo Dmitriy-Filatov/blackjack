@@ -1,13 +1,22 @@
 # frozen_string_literal: true
 
-require 'pry'
-
 class Interface
   attr_accessor :game
 
   def initialize
-    @game = Game.new
+    @game = Game.new(self)
   end
+
+  def greeting
+    user_input_message
+    username_input
+    user_greeting
+    line
+  end
+
+def ask_user_to_play_one_more_time
+  puts 'Введите 1 если хотите продолжть.'
+end
 
   def user_input_message
     puts 'Введите свое имя и нажмите Enter!'
@@ -25,12 +34,16 @@ class Interface
     puts '___________________'
   end
 
+  def user_input
+    gets.chomp
+  end
+
   def start_game
     game.start_game
   end
 
   def user_cards
-    puts @user.hand.cards.map(&:face)
+    puts game.user.hand.card_set.map(&:face)
   end
 
   def dealers_invisible_cards
@@ -38,15 +51,21 @@ class Interface
   end
 
   def dealer_cards
-    puts @dealer.hand.cards.map(&:face)
+    puts game.dealer.hand.card_set.map(&:face)
+  end
+
+  def show_cards
+    user_cards
+    puts '_________'
+    dealers_invisible_cards
   end
 
   def user_score
-    puts "Сумма твоих очков, #{@user.name}: #{@user.hand.score}"
+    puts "Сумма твоих очков, #{game.user.name}: #{game.user.hand.score}"
   end
 
   def dealer_score
-    puts "Сумма очков дилера: #{@dealer.hand.score}"
+    puts "Сумма очков дилера: #{game.dealer.hand.score}"
   end
 
   def menu
@@ -61,24 +80,8 @@ class Interface
     dealer_cards
     dealer_score
     line
-  end
-
-  def results
-    players_score
-    if @dealer_score == @user_score
-      dead_heat_message
-      return
-    end
-    if @dealer_score < @user_score
-      user_winning_message
-    else
-      dealer_winning_message
-    end
-  end
-
-  def players_score
-    @dealer_score = (21 - @dealer.hand.score).abs
-    @user_score = (21 - @user.hand.score).abs
+    puts "Твой банк: #{game.user.bank}"
+    puts "Банк дилера: #{game.dealer.bank}"
   end
 
   def dead_heat_message
@@ -86,32 +89,10 @@ class Interface
   end
 
   def user_winning_message
-    puts "#{@user.name} wins!"
+    puts "#{game.user.name} wins!"
   end
 
   def dealer_winning_message
     puts 'Dealer wins!'
-  end
-
-  def user_move(menue_number)
-    case menue_number
-    when '1'
-      dealers_move
-    when '2'
-      one_card if @user.hand.cards.count == 2
-      show_cards if @user.hand.cards.count == 3 && @dealer.hand.cards.count == 3
-    when '3'
-      show_cards
-    end
-  end
-
-  def action_choise(user_input)
-    case user_input
-    when '1'
-
-    when '2'
-    end
-    # play another round
-    # quit
   end
 end
